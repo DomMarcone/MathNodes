@@ -6,10 +6,12 @@
 
 int is_operator(char c){
 	switch(c){
+	case '^' :
 	case '*' :
 	case '/' :
 	case '+' :
 	case '-' :
+	case '%' :
 		return TRUE;
 		break;
 	}
@@ -30,9 +32,15 @@ int is_whitespace(char c){
 
 int enumerate_precedence(char op){
 	switch(op){
-	case '/' :
-		return 200;
+	case '^' :
+		return 1000;
 		break; // I'm aware it's redundant
+	case '/' :
+		return 300;
+		break;
+	case '%' :
+		return 200;
+		break;
 	case '*' :
 		return 100;
 		break;

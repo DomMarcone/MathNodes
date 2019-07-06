@@ -211,9 +211,13 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 
 MathNode * opToNode(char op, MathNode *left, MathNode *right){
 	switch(op){
+	case '^' :
+		return new ExponentNode(left,right);
+		break;//redundant break statement
+		
 	case '/' :
 		return new DivideNode(left,right);
-		break;//redundant break statement
+		break;
 		
 	case '*' :
 		return new MultiplyNode(left,right);
@@ -225,6 +229,10 @@ MathNode * opToNode(char op, MathNode *left, MathNode *right){
 		
 	case '+' :
 		return new AddNode(left,right);
+		break;
+		
+	case '%' :
+		return new ModulusNode(left,right);
 		break;
 		
 	default:

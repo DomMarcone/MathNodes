@@ -1,13 +1,13 @@
 //MathNodes.cpp
 
 #include "MathNodes.hpp"
-
+#include <cmath>
 
 //Begin MathNode
 MathNode::MathNode(){}
 
 MathNode::~MathNode(){}
-MathNode * MathNode::copy(){return new MathNode();}
+MathNode * MathNode::copy(){ return new MathNode(); }
 
 float MathNode::getValue(){return 0.f;}
 //End MathNode
@@ -19,7 +19,7 @@ ConstantNode::ConstantNode(float v){
 }
 
 ConstantNode::~ConstantNode(){}
-MathNode * ConstantNode::copy(){return new ConstantNode(value);}
+MathNode * ConstantNode::copy(){ return new ConstantNode(value); }
 
 
 float ConstantNode::getValue(){
@@ -34,7 +34,7 @@ VariableNode::VariableNode(float *v){
 }
 
 VariableNode::~VariableNode(){}
-MathNode * VariableNode::copy(){return new VariableNode(value_ptr);}
+MathNode * VariableNode::copy(){ return new VariableNode(value_ptr); }
 
 
 float VariableNode::getValue(){
@@ -49,7 +49,7 @@ FunctionNode::FunctionNode( float (*fp)() ){
 }
 
 FunctionNode::~FunctionNode(){}
-MathNode * FunctionNode::copy(){return new FunctionNode(func_ptr);}
+MathNode * FunctionNode::copy(){ return new FunctionNode(func_ptr); }
 
 
 float FunctionNode::getValue(){
@@ -77,7 +77,7 @@ void Function1ParamNode::addParam(MathNode *a){
 	param = a;
 }
 
-MathNode * Function1ParamNode::copy(){return new Function1ParamNode(func_ptr,param);}
+MathNode * Function1ParamNode::copy(){ return new Function1ParamNode(func_ptr,param); }
 
 float Function1ParamNode::getValue(){
 	if(param==0)return 0.f;//handle null parameter
@@ -92,7 +92,7 @@ DivideNode::DivideNode(MathNode *a, MathNode *b){
 	right = b;
 }
 
-MathNode * DivideNode::copy(){return new DivideNode(left,right);}
+MathNode * DivideNode::copy(){ return new DivideNode(left->copy(), right->copy()); }
 
 DivideNode::~DivideNode(){
 	delete left;
@@ -116,7 +116,7 @@ MultiplyNode::~MultiplyNode(){
 	delete right;
 }
 
-MathNode * MultiplyNode::copy(){return new MultiplyNode(left,right);}
+MathNode *MultiplyNode::copy(){ return new MultiplyNode(left->copy(), right->copy()); }
 
 float MultiplyNode::getValue(){
 	return left->getValue()*right->getValue();
@@ -135,7 +135,7 @@ SubtractNode::~SubtractNode(){
 	delete right;
 }
 
-MathNode * SubtractNode::copy(){return new SubtractNode(left,right);}
+MathNode *SubtractNode::copy(){ return new SubtractNode(left->copy(),right->copy()); }
 
 float SubtractNode::getValue(){
 	return left->getValue() - right->getValue();
@@ -154,12 +154,50 @@ AddNode::~AddNode(){
 	delete right;
 }
 
-MathNode * AddNode::copy(){return new AddNode(left,right);}
+MathNode *AddNode::copy(){ return new AddNode(left->copy(),right->copy()); }
 
 float AddNode::getValue(){
 	return left->getValue() + right->getValue();
 }
 //End AddNode
+
+
+//Begin ModulusNode
+ModulusNode::ModulusNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+ModulusNode::~ModulusNode(){
+	delete left;
+	delete right;
+}
+
+MathNode *ModulusNode::copy(){ return new ModulusNode(left->copy(), right->copy()); }
+
+float ModulusNode::getValue(){
+	return fmod(left->getValue(), right->getValue());
+}
+//End ModulusNode
+
+
+//Begin ExponentNode
+ExponentNode::ExponentNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+ExponentNode::~ExponentNode(){
+	delete left;
+	delete right;
+}
+
+MathNode *ExponentNode::copy(){ return new ExponentNode(left->copy(), right->copy()); }
+
+float ExponentNode::getValue(){
+	return powf(left->getValue(), right->getValue());
+}
+//End ExponentNode
 
 
 //Begin ErrorNode

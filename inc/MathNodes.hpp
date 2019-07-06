@@ -5,6 +5,7 @@
 
 #include "parenthesize.h"
 
+
 class MathNode{
 public:
 	MathNode();
@@ -12,6 +13,7 @@ public:
 	virtual MathNode * copy();
 	virtual float getValue();
 };
+
 
 class ConstantNode : public MathNode{
 private:
@@ -23,6 +25,7 @@ public:
 	float getValue();
 };
 
+
 class VariableNode : public MathNode{
 private:
 	float *value_ptr;
@@ -33,6 +36,7 @@ public:
 	float getValue();
 };
 
+
 class FunctionNode : public MathNode{
 private:
 	float (*func_ptr)();
@@ -42,6 +46,7 @@ public:
 	MathNode *copy();
 	float getValue();
 };
+
 
 class Function1ParamNode : public MathNode{
 private:
@@ -56,6 +61,7 @@ public:
 	float getValue();
 };
 
+
 class DivideNode : public MathNode{
 	MathNode *left, *right;
 public:
@@ -64,6 +70,7 @@ public:
 	MathNode *copy();
 	float getValue();
 };
+
 
 class MultiplyNode : public MathNode{
 private:
@@ -75,6 +82,7 @@ public:
 	float getValue();
 };
 
+
 class SubtractNode : public MathNode{
 private:
 	MathNode *left, *right;
@@ -84,6 +92,7 @@ public:
 	MathNode *copy();
 	float getValue();
 };
+
 
 class AddNode : public MathNode{
 private:
@@ -95,6 +104,29 @@ public:
 	float getValue();
 };
 
+
+class ModulusNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	ModulusNode(MathNode *a, MathNode *b);
+	~ModulusNode();
+	MathNode *copy();
+	float getValue();
+};
+
+
+class ExponentNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	ExponentNode(MathNode *a, MathNode *b);
+	~ExponentNode();
+	MathNode *copy();
+	float getValue();
+};
+
+
 class ErrorNode : public MathNode{
 public:
 	ErrorNode();
@@ -103,4 +135,4 @@ public:
 	float getValue();
 };
 
-#endif
+#endif //MathNodes.hpp
