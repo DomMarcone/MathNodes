@@ -1,4 +1,4 @@
-#MathNodes#
+# MathNodes
 
 MathNodes is a simple C++ math expression parser. It's node structure is designed for quick, repetetive calculations of floating point numbers.
 
