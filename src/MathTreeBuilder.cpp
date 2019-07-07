@@ -1,7 +1,7 @@
-//MathNodeBuilder.cpp
+//MathTreeBuilder.cpp
 
 #include "MathNodes.hpp"
-#include "MathNodeBuilder.hpp"
+#include "MathTreeBuilder.hpp"
 #include "parenthesize.h"
 
 #include <string.h>
@@ -12,11 +12,11 @@
 
 MathNode * opToNode(char op, MathNode *left, MathNode *right);
 
-MathNode *MathNodeBuilder::parse(char *input){
+MathNode *MathTreeBuilder::parse(char *input){
 	return parseSub(0, strlen(input), input);
 }
 
-#ifdef MATH_NODE_VERBOSITY
+#ifdef MATH_TREE_VERBOSITY
 	#include <stdio.h>
 
 	void printSegment(size_t start, size_t end, char *input){
@@ -26,24 +26,24 @@ MathNode *MathNodeBuilder::parse(char *input){
 		//fill until the end of the line
 		for(int i=end;input[i];++i)printf(" ");
 	}
-#endif
+#endif //MATH_TREE_VERBOSITY
 
-MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
+MathNode *MathTreeBuilder::parseSub(size_t start, size_t end, char *input){
 	
 	//are there unclosed/open parenthesises
 	if(unclosed_parenthesis(start,end,input) != 0){
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : unclosed parenthesis!\n");
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		return new ErrorNode();
 	}
 	
 	if(start==end){
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : start == end!\n");
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		return new ErrorNode();
 	}
 	
@@ -58,10 +58,10 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 		value = atof(temp);
 		free(temp);
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : found constant %f\n", value);
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		
 		return new ConstantNode(value);
 	}
@@ -70,10 +70,10 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 	if(is_parenthesized(start,end,input)){
 		move_into_parenthesis(&start,&end,input);
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : moved into parenthesis\n");
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		
 		return parseSub(start,end,input);
 	}
@@ -87,10 +87,10 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 		name[len-1] = 0;
 		temp = getVariable(name);
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : variable %s\n",name);
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		
 		free(name);
 		
@@ -112,10 +112,10 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 		
 		temp = getFunction1Param(name);
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : function %s\n",name);
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		
 		free(name);
 		
@@ -144,10 +144,10 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 		
 		temp = getFunction(name);
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : function %s\n",name);
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		
 		free(name);
 		
@@ -165,7 +165,7 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 		
 		if(l_end == -1 || r_start == -1)return new ErrorNode();
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : simple math function\n");
 		#endif
@@ -193,10 +193,10 @@ MathNode *MathNodeBuilder::parseSub(size_t start, size_t end, char *input){
 	
 		if(l_end == -1 || r_start == -1)return new ErrorNode();
 		
-		#ifdef MATH_NODE_VERBOSITY
+		#ifdef MATH_TREE_VERBOSITY
 			printSegment(start,end,input);
 			printf(" : spliting and parsing sides\n");
-		#endif
+		#endif //MATH_TREE_VERBOSITY
 		
 		left = parseSub(start,l_end,input);
 		right = parseSub(r_start,end,input);
@@ -244,52 +244,52 @@ MathNode * opToNode(char op, MathNode *left, MathNode *right){
 
 
 
-void MathNodeBuilder::addVariable(float *f, const char *n){
+void MathTreeBuilder::addVariable(float *f, const char *n){
 	variable a;
 	a.name = n;
 	a.value_ptr = f;
 	variables.push_back(a);
 }
 
-void MathNodeBuilder::addVariable(float *f, const std::string &n){
+void MathTreeBuilder::addVariable(float *f, const std::string &n){
 	addVariable(f, (char*)n.c_str());
 }
 
 
-void MathNodeBuilder::addFunction(float (*fp)(), const char *n){
+void MathTreeBuilder::addFunction(float (*fp)(), const char *n){
 	function a;
 	a.name = n;
 	a.func_ptr = fp;
 	functions.push_back(a);
 }
 
-void MathNodeBuilder::addFunction(float (*fp)(), const std::string &n){
+void MathTreeBuilder::addFunction(float (*fp)(), const std::string &n){
 	addFunction(fp, (char*)n.c_str());
 }
 
 
-void MathNodeBuilder::addFunction1Param(float (*fp)(float), const char *n){
+void MathTreeBuilder::addFunction1Param(float (*fp)(float), const char *n){
 	function1param a;
 	a.name = n;
 	a.func_ptr = fp;
 	function1params.push_back(a);
 }
 
-void MathNodeBuilder::addFunction1Param(float (*fp)(float), const std::string &n){
+void MathTreeBuilder::addFunction1Param(float (*fp)(float), const std::string &n){
 	addFunction1Param(fp, (char*)n.c_str());
 }
 
 //overload addFunction to handle Function1ParamNodes
-void MathNodeBuilder::addFunction(float (*fp)(float), const char *n){
+void MathTreeBuilder::addFunction(float (*fp)(float), const char *n){
 	addFunction1Param(fp,n);
 }
 
-void MathNodeBuilder::addFunction(float (*fp)(float), const std::string &n){
+void MathTreeBuilder::addFunction(float (*fp)(float), const std::string &n){
 	addFunction(fp, (char*)n.c_str());
 }
 
 
-MathNode *MathNodeBuilder::getVariable(char *name){
+MathNode *MathTreeBuilder::getVariable(char *name){
 	for(int i=0;i<variables.size();++i){
 		if( strcmp(variables[i].name, name)==0 ){
 			return new VariableNode( variables[i].value_ptr );
@@ -299,7 +299,7 @@ MathNode *MathNodeBuilder::getVariable(char *name){
 	return 0;
 }
 
-MathNode *MathNodeBuilder::getFunction(char *name){
+MathNode *MathTreeBuilder::getFunction(char *name){
 	for(int i=0;i<functions.size();++i){
 		if( strcmp(functions[i].name, name)==0 ){
 			return new FunctionNode( functions[i].func_ptr );
@@ -308,7 +308,7 @@ MathNode *MathNodeBuilder::getFunction(char *name){
 	return 0;
 }
 
-Function1ParamNode *MathNodeBuilder::getFunction1Param(char *name){
+Function1ParamNode *MathTreeBuilder::getFunction1Param(char *name){
 	for(int i=0;i<function1params.size();++i){
 		if( strcmp(function1params[i].name, name)==0 ){
 			return new Function1ParamNode( function1params[i].func_ptr );

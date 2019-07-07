@@ -1,4 +1,4 @@
-CC=g++
+CC=gcc
 CXX=g++
 
 IDIR=inc
@@ -11,14 +11,14 @@ CFLAGS=-O3 -I./$(IDIR)
 CXXFLAGS=-O3 -I./$(IDIR)
 
 
-Parse: $(ODIR)/MathNodesTest.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathNodeBuilder.o 
-	$(CXX) $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathNodeBuilder.o $(ODIR)/MathNodesTest.o -o $(BDIR)/$@.exe
+Parse: $(ODIR)/MathNodesTest.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o 
+	$(CXX) $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o $(ODIR)/MathNodesTest.o -o $(BDIR)/$@.exe
 
 $(ODIR)/MathNodesTest.o: $(TDIR)/MathNodesTest.cpp
 	$(CXX) $(CXXFLAGS) -c $(TDIR)/MathNodesTest.cpp -o $@
 
-$(ODIR)/MathNodeBuilder.o: $(SDIR)/MathNodeBuilder.cpp $(IDIR)/MathNodeBuilder.hpp $(IDIR)/MathNodes.hpp $(IDIR)/parenthesize.h
-	$(CXX) $(CXXFLAGS) -c $(SDIR)/MathNodeBuilder.cpp -o $@
+$(ODIR)/MathTreeBuilder.o: $(SDIR)/MathTreeBuilder.cpp $(IDIR)/MathTreeBuilder.hpp $(IDIR)/MathNodes.hpp $(IDIR)/parenthesize.h
+	$(CXX) $(CXXFLAGS) -c $(SDIR)/MathTreeBuilder.cpp -o $@
 
 $(ODIR)/MathNodes.o: $(SDIR)/MathNodes.cpp $(IDIR)/MathNodes.hpp
 	$(CXX) $(CXXFLAGS) -c $(SDIR)/MathNodes.cpp -o $@

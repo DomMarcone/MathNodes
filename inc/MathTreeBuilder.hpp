@@ -1,4 +1,4 @@
-//MathNodeBuilder.hpp
+//MathTreeBuilder.hpp
 #include "MathNodes.hpp"
 #include "parenthesize.h"
 
@@ -6,10 +6,10 @@
 #include <string>
 
 /*************************************************
-** Define MATH_NODE_VERBOSITY to get messages 	**
+** Define MATH_TREE_VERBOSITY to get messages 	**
 ** from the parser.								**
 *************************************************/
-//#define MATH_NODE_VERBOSITY
+//#define MATH_TREE_VERBOSITY
 
 typedef struct {
 	const char *name;
@@ -29,7 +29,7 @@ typedef struct {
 }function1param;
 
 
-class MathNodeBuilder{
+class MathTreeBuilder{
 private:
 	std::vector<variable> variables;
 	std::vector<function> functions;

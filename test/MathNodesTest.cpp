@@ -1,6 +1,6 @@
 //MathNodesTest.cpp
 #include "MathNodes.hpp"
-#include "MathNodeBuilder.hpp"
+#include "MathTreeBuilder.hpp"
 
 #include <stdio.h>
 #include <time.h>
@@ -19,33 +19,33 @@ int main(int argc, char **args){
 	float pi = 3.14159265359;
 	float e = 2.7182818284;
 	
-	MathNodeBuilder mnb;
+	MathTreeBuilder mtb;
 	
-	mnb.addVariable(&pi, "pi");
-	mnb.addVariable(&e, "e");
+	mtb.addVariable(&pi, "pi");
+	mtb.addVariable(&e, "e");
 	
-	mnb.addFunction(time_func,"time");
-	mnb.addFunction(help_func,"help");
-	mnb.addFunction(exit_func,"exit");
+	mtb.addFunction(time_func,"time");
+	mtb.addFunction(help_func,"help");
+	mtb.addFunction(exit_func,"exit");
 	
 	//addFunction is overloaded to handle both:
 	//	float (*func)()
 	//	float (*func)(float)
-	mnb.addFunction(sinf,"sin");
-	mnb.addFunction(cosf,"cos");
-	mnb.addFunction(tanf,"tan");
+	mtb.addFunction(sinf,"sin");
+	mtb.addFunction(cosf,"cos");
+	mtb.addFunction(tanf,"tan");
 	
-	mnb.addFunction(asinf,"asin");
-	mnb.addFunction(acosf,"acos");
-	mnb.addFunction(atanf,"atan");
-	
-	mnb.addFunction(sqrtf,"sqrt");
+	mtb.addFunction(asinf,"asin");
+	mtb.addFunction(acosf,"acos");
+	mtb.addFunction(atanf,"atan");
+		
+	//mtb.addFunction(sqrtf,"sqrt"); //removed. Please use "^0.5"
 	
 	while(true){
 		MathNode *mn;
 		printf(">");
 		gets(temp);
-		mn = mnb.parse(temp);
+		mn = mtb.parse(temp);
 		printf(" %f\n\n", mn->getValue());
 		delete mn;
 	}
@@ -63,7 +63,7 @@ float help_func(){
 	printf("\thelp()\t-prints this\n");
 	printf("\ttime()\t-returns time in seconds\n");
 	printf("\texit()\t-exits the parser\n");
-	printf("\tsqrt(n)\n");
+	//printf("\tsqrt(n)\n");
 	printf("\tsin(theta)\n");
 	printf("\tcos(theta)\n");
 	printf("\ttan(theta)\n");
