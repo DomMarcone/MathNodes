@@ -10,14 +10,24 @@ BDIR=build
 CFLAGS=-O3 -I./$(IDIR)
 CXXFLAGS=-O3 -I./$(IDIR)
 
-all : Parser MathNodeTest
+all : parse iparse MathNodeTest
 
-#Build Parser
-Parser: $(ODIR)/Parser.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o
-	$(CXX) $(CXXFLAGS) $(ODIR)/Parser.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o -o $(BDIR)/$@.exe
+#Build parser
+parse: $(ODIR)/parse.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o
+	$(CXX) $(CXXFLAGS) $(ODIR)/$@.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o -o $(BDIR)/$@.exe
 
-$(ODIR)/Parser.o: $(SDIR)/Parser.cpp
-	$(CXX) $(CXXFLAGS) -c $(SDIR)/Parser.cpp -o $@
+$(ODIR)/parse.o: $(SDIR)/parse.cpp
+	$(CXX) $(CXXFLAGS) -c $(SDIR)/parse.cpp -o $@
+
+
+#build inline parser
+iparse: $(ODIR)/iparse.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o
+	$(CXX) $(CXXFLAGS) $(ODIR)/$@.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o -o $(BDIR)/$@.exe
+	
+
+$(ODIR)/iparse.o: $(SDIR)/iparse.cpp
+	$(CXX) $(CXXFLAGS) -c $(SDIR)/iparse.cpp -o $@
+	
 
 #Build Test of MathNodeTest
 MathNodeTest: $(ODIR)/MathNodesTest.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o 

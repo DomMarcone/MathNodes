@@ -1,4 +1,4 @@
-//Parser.cpp
+//parse.cpp
 #include "MathNodes.hpp"
 #include "MathTreeBuilder.hpp"
 
