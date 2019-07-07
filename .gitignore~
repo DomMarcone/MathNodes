@@ -1,8 +1,0 @@
-#ignore files generated prior to linking.
-*.o
-*.obj
-
-#ignore executables
-*.exe
-build/*
-

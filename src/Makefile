@@ -10,8 +10,17 @@ BDIR=build
 CFLAGS=-O3 -I./$(IDIR)
 CXXFLAGS=-O3 -I./$(IDIR)
 
+all : Parser MathNodeTest
 
-Parse: $(ODIR)/MathNodesTest.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o 
+#Build Parser
+Parser: $(ODIR)/Parser.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o
+	$(CXX) $(CXXFLAGS) $(ODIR)/Parser.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o -o $(BDIR)/$@.exe
+
+$(ODIR)/Parser.o: $(SDIR)/Parser.cpp
+	$(CXX) $(CXXFLAGS) -c $(SDIR)/Parser.cpp -o $@
+
+#Build Test of MathNodeTest
+MathNodeTest: $(ODIR)/MathNodesTest.o $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o 
 	$(CXX) $(ODIR)/parenthesize.o $(ODIR)/MathNodes.o $(ODIR)/MathTreeBuilder.o $(ODIR)/MathNodesTest.o -o $(BDIR)/$@.exe
 
 $(ODIR)/MathNodesTest.o: $(TDIR)/MathNodesTest.cpp
