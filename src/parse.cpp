@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 #define MAX_BUFFER_SIZE 128
@@ -44,7 +45,7 @@ int main(int argc, char **args){
 	while(true){
 		MathNode *mn;
 		printf(">");
-		gets(temp);
+		gets_s(temp);
 		mn = mtb.parse(temp);
 		printf(" %f\n\n", mn->getValue());
 		

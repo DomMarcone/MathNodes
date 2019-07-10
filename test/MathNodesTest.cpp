@@ -3,6 +3,8 @@
 #include "MathTreeBuilder.hpp"
 
 #include <stdio.h>
+
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 #define MAX_BUFFER_SIZE 128
@@ -29,7 +31,7 @@ int main(int argc, char **args){
 	
 	while(true){
 		printf("expression : ");
-		gets(temp);
+		gets_s(temp);
 		mn = mtb.parse(temp);
 		printf("\t%f\n\n", mn->getValue());
 		delete mn;

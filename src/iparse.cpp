@@ -11,7 +11,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #define PARSER_BUFFER 256
 #define INPUT_BUFFER 64
