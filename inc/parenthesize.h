@@ -8,6 +8,10 @@
 	errors evaluate to the constant 0
 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <string.h>
 #include <stdlib.h>
 
@@ -46,5 +50,9 @@ size_t get_right_token(size_t start, size_t end, char * input);
 int is_simple_math(size_t start, size_t end, char *input);
 char get_math_operator_from_left(size_t start, size_t end, char *input);
 char get_math_operator_from_right(size_t start, size_t end, char *input);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
