@@ -17,5 +17,6 @@ mkdir build
 cmake ..
 ```
 
- *parse* is a trivial program parse a series of expressions. *iparse* is a slighly more robust inline parser, as it has built in help functions and can accept command line arguments.
+ *parse* is a trivial program which can parse and give the results of simple math expressions. 
+ *iparse* is a slighly more robust inline parser, as it has built in help functions and can accept command line arguments. Please run ```iparse --help``` to get a full list of supported features.
 
