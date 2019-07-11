@@ -39,3 +39,17 @@ add_executable(MathNodesTest
 	../test/MathNodesTest.cpp 
 )
 target_link_libraries(MathNodesTest libMathNodes)
+
+
+#add_executable(parenthesize 
+#	../test/test_parenthesize.cpp 
+#)
+#target_link_libraries(parenthesize libMathNodes)
+
+
+add_executable(benchmark 
+	../test/benchmark.cpp 
+)
+target_link_libraries(benchmark libMathNodes)
+
+
