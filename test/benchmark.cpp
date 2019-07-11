@@ -58,6 +58,9 @@ int main(int argc, char *argv[]){
 	printf("\ttest:\t\t%dms\n",end-control);
 	printf("\ttest-control:\t%dms\n",(end-control)-(control-initial));
 	
+	//to avoid memory leakage
+	delete mn;
+	
 	return 0;
 }
 
