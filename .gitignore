@@ -7,3 +7,5 @@
 *.dll
 *.out
 
+#keep the build directory clean
+build/*
