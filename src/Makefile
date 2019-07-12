@@ -2,7 +2,7 @@ CC=gcc
 CXX=g++
 
 IDIR=inc
-ODIR=obj
+ODIR=build
 SDIR=src
 TDIR=test
 BDIR=build
