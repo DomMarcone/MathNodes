@@ -11,7 +11,7 @@ public:
 	MathNode();
 	~MathNode();
 	virtual MathNode * copy();
-	virtual float getValue();
+	virtual inline float getValue();
 };
 
 
@@ -22,7 +22,7 @@ public:
 	ConstantNode(float v);
 	~ConstantNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -33,7 +33,7 @@ public:
 	VariableNode(float *v);
 	~VariableNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -44,7 +44,7 @@ public:
 	FunctionNode(float (*fp)());
 	~FunctionNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -58,7 +58,7 @@ public:
 	~Function1ParamNode();
 	void addParam(MathNode *a);
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -68,7 +68,7 @@ public:
 	DivideNode(MathNode *a, MathNode *b);
 	~DivideNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -79,7 +79,7 @@ public:
 	MultiplyNode(MathNode *a, MathNode *b);
 	~MultiplyNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -90,7 +90,7 @@ public:
 	SubtractNode(MathNode *a, MathNode *b);
 	~SubtractNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -101,7 +101,7 @@ public:
 	AddNode(MathNode *a, MathNode *b);
 	~AddNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -112,7 +112,7 @@ public:
 	ModulusNode(MathNode *a, MathNode *b);
 	~ModulusNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -123,7 +123,7 @@ public:
 	ExponentNode(MathNode *a, MathNode *b);
 	~ExponentNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 
@@ -132,7 +132,7 @@ public:
 	ErrorNode();
 	~ErrorNode();
 	MathNode *copy();
-	float getValue();
+	inline float getValue();
 };
 
 #endif //MathNodes.hpp
