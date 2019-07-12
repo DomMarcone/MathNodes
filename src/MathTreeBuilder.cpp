@@ -153,28 +153,6 @@ MathNode *MathTreeBuilder::parseSub(size_t start, size_t end, char *input){
 		
 		if(temp!=0)return temp;
 	}
-	
-	//handle simple math operators (possibly needs deprication)
-	/*
-	if(is_simple_math(start,end,input)){
-		char op = get_math_operator_from_left(start,end,input);
-		size_t l_end, r_start;
-		MathNode *left, *right;
-		l_end = get_left_token(start,end,input);
-		r_start = get_right_token(start,end,input);
-		
-		if(l_end == -1 || r_start == -1)return new ErrorNode();
-		
-		#ifdef MATH_TREE_VERBOSITY
-			printSegment(start,end,input);
-			printf(" : simple math function\n");
-		#endif
-		
-		left = parseSub(start,l_end,input);
-		right = parseSub(r_start,end,input);
-		
-		return opToNode(op,left,right);
-	}*/
 
 	
 	//if we've made it here, split the problem into smaller parts

@@ -218,23 +218,6 @@ int is_function(size_t start, size_t end, char *input){
 }
 
 
-int is_simple_math(size_t start, size_t end, char *input){
-	size_t pivot1, op;
-	for(pivot1=start; pivot1<end && is_constant_or_name(start,pivot1+1,input);++pivot1);
-	
-	//ended prematurely
-	if(pivot1==start || pivot1==end)return FALSE;
-	
-	for(op=pivot1;op < end && !is_operator(input[op]); ++op);
-	
-	if(op==end || !is_operator(input[op]))return FALSE;
-	
-	if(op+1==end || !is_constant_or_name(op+1,end,input))return FALSE;
-	
-	return TRUE;
-}
-
-
 size_t find_least_precedent(size_t start, size_t end, char *input){
 	size_t least_location = -1;
 	int least_precedence = 100000000;//just a high number. nothing special

@@ -47,7 +47,6 @@ size_t find_least_precedent(size_t start, size_t end, char *input);
 size_t get_left_token(size_t start, size_t end, char *input);
 size_t get_right_token(size_t start, size_t end, char * input);
 
-int is_simple_math(size_t start, size_t end, char *input);
 char get_math_operator_from_left(size_t start, size_t end, char *input);
 char get_math_operator_from_right(size_t start, size_t end, char *input);
 
