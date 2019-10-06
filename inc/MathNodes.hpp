@@ -62,6 +62,83 @@ public:
 };
 
 
+class NotNode : public MathNode{
+private:
+	MathNode *child;
+public:
+	NotNode(MathNode *c);
+	~NotNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
+class AndNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	AndNode(MathNode *a, MathNode *b);
+	~AndNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
+class OrNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	OrNode(MathNode *a, MathNode *b);
+	~OrNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
+class EqualToNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	EqualToNode(MathNode *a, MathNode *b);
+	~EqualToNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
+class LessThanNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	LessThanNode(MathNode *a, MathNode *b);
+	~LessThanNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
+class GreaterThanNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	GreaterThanNode(MathNode *a, MathNode *b);
+	~GreaterThanNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
+class ExponentNode : public MathNode{
+private:
+	MathNode *left, *right;
+public:
+	ExponentNode(MathNode *a, MathNode *b);
+	~ExponentNode();
+	MathNode *copy();
+	inline float getValue();
+};
+
+
 class DivideNode : public MathNode{
 	MathNode *left, *right;
 public:
@@ -111,17 +188,6 @@ private:
 public:
 	ModulusNode(MathNode *a, MathNode *b);
 	~ModulusNode();
-	MathNode *copy();
-	inline float getValue();
-};
-
-
-class ExponentNode : public MathNode{
-private:
-	MathNode *left, *right;
-public:
-	ExponentNode(MathNode *a, MathNode *b);
-	~ExponentNode();
 	MathNode *copy();
 	inline float getValue();
 };

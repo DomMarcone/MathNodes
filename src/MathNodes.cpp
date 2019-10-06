@@ -86,6 +86,125 @@ inline float Function1ParamNode::getValue(){
 //End Function1ParamNode
 
 
+//Begin NotNode
+NotNode::NotNode(MathNode *c){
+	child = c;
+}
+
+MathNode * NotNode::copy(){ return new NotNode(child->copy()); }
+
+NotNode::~NotNode(){
+	delete child;
+}
+
+inline float NotNode::getValue(){
+	return 1.0 * (child->getValue() == 0.0);
+}
+//End NotNode
+
+
+//Begin AndNode
+AndNode::AndNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+MathNode * AndNode::copy(){ return new AndNode(left->copy(), right->copy()); }
+
+AndNode::~AndNode(){
+	delete left;
+	delete right;
+}
+
+inline float AndNode::getValue(){
+	return 1.0 * 
+		((left->getValue() != 0.0) && 
+		(right->getValue() != 0.0));
+}
+//End AndNode
+
+
+//Begin OrNode
+OrNode::OrNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+MathNode * OrNode::copy(){ return new OrNode(left->copy(), right->copy()); }
+
+OrNode::~OrNode(){
+	delete left;
+	delete right;
+}
+
+inline float OrNode::getValue(){
+	return 1.0 * 
+		((left->getValue() != 0.0) || 
+		(right->getValue() != 0.0));
+}
+//End OrNode
+
+
+//Begin EqualToNode
+EqualToNode::EqualToNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+MathNode * EqualToNode::copy(){ return new EqualToNode(left->copy(), right->copy()); }
+
+EqualToNode::~EqualToNode(){
+	delete left;
+	delete right;
+}
+
+inline float EqualToNode::getValue(){
+	return 1.0 * 
+		(left->getValue() == right->getValue());
+}
+//End EqualToNode
+
+
+//Begin LessThanNode
+LessThanNode::LessThanNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+MathNode * LessThanNode::copy(){ return new LessThanNode(left->copy(), right->copy()); }
+
+LessThanNode::~LessThanNode(){
+	delete left;
+	delete right;
+}
+
+inline float LessThanNode::getValue(){
+	return 1.0 * 
+		(left->getValue() < right->getValue());
+}
+//End LessThanNode
+
+
+//Begin GreaterThanNode
+GreaterThanNode::GreaterThanNode(MathNode *a, MathNode *b){
+	left = a;
+	right = b;
+}
+
+MathNode * GreaterThanNode::copy(){ return new GreaterThanNode(left->copy(), right->copy()); }
+
+GreaterThanNode::~GreaterThanNode(){
+	delete left;
+	delete right;
+}
+
+inline float GreaterThanNode::getValue(){
+	return 1.0 * 
+		(left->getValue() > right->getValue());
+}
+//End GreaterThanNode
+
+
 //Begin DivideNode
 DivideNode::DivideNode(MathNode *a, MathNode *b){
 	left = a;

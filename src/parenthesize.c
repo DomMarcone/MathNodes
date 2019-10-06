@@ -6,6 +6,12 @@
 
 int is_operator(char c){
 	switch(c){
+	case '&' :
+	case '|' :
+	case '!' :
+	case '<' :
+	case '>' :
+	case '=' :
 	case '^' :
 	case '*' :
 	case '/' :
@@ -32,24 +38,46 @@ int is_whitespace(char c){
 
 int enumerate_precedence(char op){
 	switch(op){
+		
 	case '^' :
-		return 1000;
-		break; // I'm aware it's redundant
+		return 10000;
+		break; 
 	case '/' :
-		return 300;
+		return 3000;
 		break;
 	case '%' :
-		return 200;
+		return 2000;
 		break;
 	case '*' :
-		return 100;
+		return 1000;
 		break;
 	case '+' :
-		return 20;
+		return 200;
 		break;
 	case '-' :
-		return 10;
+		return 100;
 		break;
+
+	case '!' :
+		return 10;
+		break; //redundant break statement
+	case '&' :
+		return 20;
+		break;
+	case '|' :
+		return 30;
+		break;
+	
+	case '<' :
+		return 1;
+		break;
+	case '>' :
+		return 2;
+		break;
+	case '=' :
+		return 3;
+		break;
+		
 	}
 	return -1;
 }

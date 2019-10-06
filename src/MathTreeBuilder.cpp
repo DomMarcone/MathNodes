@@ -189,9 +189,34 @@ MathNode *MathTreeBuilder::parseSub(size_t start, size_t end, char *input){
 
 MathNode * opToNode(char op, MathNode *left, MathNode *right){
 	switch(op){
+	/* //Still buggy...
+	case '!' :
+		return new NotNode(right);
+		break;//redundant break statement
+	*/
+	case '&' :
+		return new AndNode(left,right);
+		break;
+		
+	case '|' :
+		return new OrNode(left,right);
+		break;
+		
+	case '=' :
+		return new EqualToNode(left,right);
+		break;
+		
+	case '<' :
+		return new LessThanNode(left,right);
+		break;
+
+	case '>' :
+		return new GreaterThanNode(left,right);
+		break;
+	
 	case '^' :
 		return new ExponentNode(left,right);
-		break;//redundant break statement
+		break;
 		
 	case '/' :
 		return new DivideNode(left,right);
